@@ -7,7 +7,7 @@ export const createPost = async (
   next: NextFunction
 ) => {
   try {
-    const { authorId, text } = req.body;
+    const { authorId, image, text } = req.body;
 
     // Validasi data
     if (!authorId || !text) {
@@ -15,7 +15,7 @@ export const createPost = async (
     }
 
     const result = await prisma.post.create({
-      data: { authorId, text },
+      data: { authorId, image, text },
     });
     res.send(result);
   } catch (error) {
