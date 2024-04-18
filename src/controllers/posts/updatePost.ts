@@ -8,6 +8,12 @@ export const updatePost = async (
 ) => {
   try {
     const id = Number(req.params.id);
+    const { authorId } = req.body;
+
+    if (authorId) {
+      throw new Error("can't access authorId");
+    }
+
     const result = await prisma.post.update({
       data: { ...req.body },
       where: { id },

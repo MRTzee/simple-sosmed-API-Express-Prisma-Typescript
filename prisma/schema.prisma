@@ -21,6 +21,8 @@ model User {
   posts    Post[]
   Like     Like[]
   Comment  Comment[]
+
+  // @@map("users")
 }
 
 model Post {
@@ -32,6 +34,8 @@ model Post {
   createdAt DateTime  @default(now())
   likes     Like[]
   comments  Comment[]
+
+  // @@map("posts")
 }
 
 model Like {
@@ -40,6 +44,8 @@ model Like {
   postId Int
   user   User @relation(fields: [userId], references: [id])
   userId Int
+
+  // @@map("likes")
 }
 
 model Comment {
@@ -50,4 +56,6 @@ model Comment {
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
   createdAt DateTime @default(now())
+
+  // @@map("comments")
 }

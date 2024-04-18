@@ -8,6 +8,14 @@ export const createUser = async (
 ) => {
   try {
     const { name, email, password } = req.body;
+    const validate = await prisma.user.findFirst({ where: { email } });
+
+    // validasi email
+    if (email) {
+      if (validate) {
+        throw new Error("Email already exist");
+      }
+    }
 
     // Validasi data
     if (!name || !email || !password) {
@@ -15,7 +23,7 @@ export const createUser = async (
     }
 
     const result = await prisma.user.create({
-      data: { name, email, password },
+      data: { ...req.body },
     });
     res.send(result);
   } catch (error) {
